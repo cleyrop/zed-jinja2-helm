@@ -1,0 +1,26 @@
+name = "Jinja2 Helm"
+grammar = "jinja"
+path_suffixes = [
+    # Copier + Helmfile: Jinja2 wrapping Go templates
+    "yaml.gotmpl.jinja",
+    "yml.gotmpl.jinja",
+    "gotmpl.jinja",
+    # Plain Jinja2 YAML (Ansible, Copier, etc.)
+    "yaml.jinja",
+    "yml.jinja",
+    "yaml.j2",
+    "yml.j2",
+    # Copier config files
+    "editorconfig.jinja",
+    "copier-answers.yml.jinja",
+]
+line_comments = ["# "]
+tab_size = 2
+brackets = [
+    { start = "{{", end = "}}", close = true, newline = false },
+    { start = "{%", end = "%}", close = true, newline = false },
+    { start = "{#", end = "#}", close = true, newline = false },
+    { start = "(", end = ")", close = true, newline = true },
+    { start = "[", end = "]", close = true, newline = true },
+    { start = "{", end = "}", close = true, newline = true },
+]

@@ -1,0 +1,12 @@
+id = "jinja2-helm"
+name = "Jinja2 Helm"
+description = "Syntax highlighting for Jinja2-templated Helm/YAML files (Copier + Helmfile workflow)"
+version = "0.1.0"
+schema_version = 1
+authors = ["Jean <jean@cleyrop.com>"]
+repository = "https://github.com/cleyrop/zed-jinja2-helm"
+
+[grammars.jinja]
+repository = "https://github.com/cathaysia/tree-sitter-jinja"
+commit = "129184fb7bbc2d3e29967002432a869ac3758f2e"
+path = "tree-sitter-jinja"
