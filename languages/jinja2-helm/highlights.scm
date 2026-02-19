@@ -1,4 +1,4 @@
-; Template delimiters — render expressions {{ }}, control blocks {% %}, comments {# #}
+; Template delimiters
 [
   "{{"
   "{{-"
@@ -46,66 +46,61 @@
 "|" @operator
 "~" @operator
 
-; Keywords — control flow
-[
-  "if"
-  "else"
-  "endif"
-  "elif"
-] @keyword
+; Keywords — scoped to parent nodes to avoid matching inside content
 
-; Keywords — loops
-[
-  "for"
-  "in"
-  "continue"
-  "break"
-  "endfor"
-] @keyword
+; Direct children of statement
+(statement
+  ["endfor" "elif" "else" "endif" "endblock" "endwith"
+   "endfilter" "endmacro" "endcall" "endset" "endtrans"
+   "continue" "break" "debug" "endautoescape"] @keyword)
 
-; Keywords — blocks and structure
-[
-  "block"
-  "endblock"
-  "with"
-  "endwith"
-  "filter"
-  "endfilter"
-  "macro"
-  "endmacro"
-  "call"
-  "endcall"
-  "set"
-  "endset"
-  "trans"
-  "endtrans"
-  "pluralize"
-  "autoescape"
-  "endautoescape"
-  "required"
-] @keyword
+; Control flow
+(if_expression "if" @keyword)
+(ternary_expression "if" @keyword)
+(ternary_expression "else" @keyword)
 
-; Keywords — imports
-[
-  "include"
-  "import"
-  "from"
-  "extends"
-  "as"
-] @keyword
+; Loops
+(for_statement "for" @keyword)
+(for_statement "recursive" @attribute)
+
+; Blocks and structure
+(block_statement "block" @keyword)
+(block_statement "required" @keyword)
+(with_statement "with" @keyword)
+(filter_statement "filter" @keyword)
+(macro_statement "macro" @keyword)
+(call_statement "call" @keyword)
+(set_statement "set" @keyword)
+(do_statement "do" @keyword)
+(trans_statement "trans" @keyword)
+(pluralize_statement "pluralize" @keyword)
+(autoescape_statement "autoescape" @keyword)
+
+; Imports
+(include_statement "include" @keyword)
+(import_statement "import" @keyword)
+(import_from "from" @keyword)
+(extends_statement "extends" @keyword)
+(import_as "as" @keyword)
 
 ; Attributes
-[
-  (attribute_ignore)
-  (attribute_context)
-  "recursive"
-] @attribute
+(attribute_ignore) @attribute
+(attribute_context) @attribute
+
+; Inline statements
+(inline
+  ["if" "endfor" "elif" "else" "endif" "endblock" "endwith"
+   "endfilter" "endmacro" "endcall" "endset" "endtrans"
+   "continue" "break" "debug" "endautoescape" "do"
+   "include" "import" "set" "for" "with" "call"
+   "extends" "macro" "filter" "block" "pluralize"
+   "trans" "autoescape"] @keyword)
 
 ; Functions
 (function_call
   (identifier) @function)
 
-"call" @function
+(call_statement "call" @function)
 
 ; Variables and parameters
 (import_statement
@@ -130,13 +125,10 @@
 (inline_trans
   "_" @function.builtin)
 
-"debug" @function.builtin
-"defined" @constant
-
-; Raw blocks — important for Go template escaping in Helm
+; Raw blocks
 (raw_start) @keyword
 (raw_end) @keyword
-(raw_body) @string.special
+(raw_body) @none
 
 ; Builtin tests (is defined, is none, etc.)
 (builtin_test

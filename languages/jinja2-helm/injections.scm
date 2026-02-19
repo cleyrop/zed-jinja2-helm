@@ -1,4 +1,7 @@
-; Inject YAML highlighting into content nodes (text between Jinja2 tags)
-((content) @injection.content
-  (#set! injection.language "YAML")
-  (#set! injection.include-children true))
+((content) @content
+    (#set! "language" "yaml")
+    (#set! "combined"))
+
+((raw_body) @content
+    (#set! "language" "helm")
+    (#set! "combined"))
