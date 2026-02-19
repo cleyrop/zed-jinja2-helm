@@ -7,6 +7,6 @@ authors = ["Jean <jean@cleyrop.com>"]
 repository = "https://github.com/cleyrop/zed-jinja2-helm"
 
 [grammars.jinja]
-repository = "https://github.com/jean-humann/tree-sitter-jinja"
+repository = "https://github.com/cleyrop/tree-sitter-jinja"
 commit = "6f6a28e54221e465a4a14179a1e65bd180dd760c"
 path = "tree-sitter-jinja"
